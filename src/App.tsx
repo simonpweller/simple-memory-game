@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import range from "lodash.range";
+import { getShuffledImages } from "./images";
+import { Card } from "./Card";
 
-function App() {
+const App = () => {
+  const rows: number[] = range(3);
+  const cols: number[] = range(4);
+  const [images] = useState(getShuffledImages());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="board">
+        {rows.map((row) => (
+          <div className="row" key={row}>
+            {cols.map((col) => {
+              let index = row * cols.length + col;
+              return <Card key={col} image={images[index]} />;
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
