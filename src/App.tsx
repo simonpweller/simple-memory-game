@@ -8,6 +8,16 @@ const App = () => {
   const cols: number[] = range(4);
   const [images] = useState(getShuffledImages());
 
+  const [cardsFlipped, setCardsFlipped] = useState(images.map(() => false));
+
+  function flip(indexToFlip: number) {
+    setCardsFlipped(
+      cardsFlipped.map((flipped, index) =>
+        index === indexToFlip ? !flipped : flipped
+      )
+    );
+  }
+
   return (
     <div className="app">
       <div className="board">
@@ -15,7 +25,14 @@ const App = () => {
           <div className="row" key={row}>
             {cols.map((col) => {
               let index = row * cols.length + col;
-              return <Card key={col} image={images[index]} />;
+              return (
+                <Card
+                  key={col}
+                  image={images[index]}
+                  isFlipped={cardsFlipped[index]}
+                  flip={() => flip(index)}
+                />
+              );
             })}
           </div>
         ))}
