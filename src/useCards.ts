@@ -12,19 +12,31 @@ const useCards = () => {
 
   const [cardsFlipped, setCardsFlipped] = useState(images.map(() => false));
   const [firstIndex, setFirstIndex] = useState<number | null>(null);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const flip = (indexToFlip: number) => {
-    if (cardsFlipped[indexToFlip]) return;
+    if (isDisabled || cardsFlipped[indexToFlip]) return;
 
     const nextCards = [...cardsFlipped];
     nextCards[indexToFlip] = !nextCards[indexToFlip];
+    setCardsFlipped(nextCards);
 
     if (firstIndex !== null && images[indexToFlip] !== images[firstIndex]) {
-      nextCards[indexToFlip] = false;
-      nextCards[firstIndex] = false;
+      flipBack(firstIndex, indexToFlip);
     }
+
     setFirstIndex(firstIndex === null ? indexToFlip : null);
-    setCardsFlipped(nextCards);
+  };
+
+  const flipBack = (firstIndex: number, secondIndex: number) => {
+    setIsDisabled(true);
+    setTimeout(() => {
+      const nextCards = [...cardsFlipped];
+      nextCards[firstIndex] = false;
+      nextCards[secondIndex] = false;
+      setCardsFlipped(nextCards);
+      setIsDisabled(false);
+    }, 750);
   };
 
   return { images, grid, cardsFlipped, flip };
