@@ -11,12 +11,16 @@ export const Card = ({
   flip: () => void;
 }) => {
   return (
-    <div
-      className="card"
-      style={{
-        backgroundImage: `url(${isFlipped ? image : cover})`,
-      }}
-      onClick={flip}
-    />
+    <div className="card" onClick={flip}>
+      <img
+        src={image}
+        alt="A cute fox"
+        style={
+          isFlipped
+            ? { width: "100%", height: "100%", objectFit: "cover" }
+            : { width: 0, height: 0 }
+        }
+      />
+    </div>
   );
 };
