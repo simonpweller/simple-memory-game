@@ -1,5 +1,4 @@
 import React from "react";
-import cover from "./images/cover.jpg";
 
 export const Card = ({
   image,
