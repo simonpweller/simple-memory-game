@@ -11,10 +11,19 @@ const useCards = () => {
   });
 
   const [cardsFlipped, setCardsFlipped] = useState(images.map(() => false));
+  const [firstIndex, setFirstIndex] = useState<number | null>(null);
 
   const flip = (indexToFlip: number) => {
+    if (cardsFlipped[indexToFlip]) return;
+
     const nextCards = [...cardsFlipped];
     nextCards[indexToFlip] = !nextCards[indexToFlip];
+
+    if (firstIndex !== null && images[indexToFlip] !== images[firstIndex]) {
+      nextCards[indexToFlip] = false;
+      nextCards[firstIndex] = false;
+    }
+    setFirstIndex(firstIndex === null ? indexToFlip : null);
     setCardsFlipped(nextCards);
   };
 
