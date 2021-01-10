@@ -21,19 +21,24 @@ code {
 
 .board {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
+  width: 100%;
+  max-width: 1000px;
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
 
 .card {
   width: 200px;
   height: 200px;
   background-image: url('/src/images/cover.jpg');
   background-size: cover;
+}
+
+@media (max-width: 800px) {
+  .card {
+    width: 100px;
+    height: 100px;
+  }
 }
